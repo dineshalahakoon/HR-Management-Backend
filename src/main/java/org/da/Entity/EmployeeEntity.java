@@ -1,24 +1,34 @@
 package org.da.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @Setter
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeEntity {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
     private String email;
-    private String createAt;
+    private String Department;
     private String UplordAt;
+    private String createAt;
+
+
+
+
+
 }
