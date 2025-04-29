@@ -1,31 +1,42 @@
 package org.da.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.da.dto.Employee;
+import org.da.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("employees")
-
+@RequiredArgsConstructor
 public class EmployeeController {
 
-    @PostMapping("/add-employee")
+    final EmployeeService service;
+
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody Employee employe1){
+    public void add(@RequestBody Employee employee){
+        service.addEmploye(employee);
+    }
+    @GetMapping()
+    public List<Employee> getall(){
+        return service.getAll();
 
     }
 
-    @GetMapping("/get-all")
-    public void getall(){
-
+    @PutMapping("/{id}")
+    public void updateEmployee(@RequestBody Employee employee, @PathVariable Long id) {
+        service.updateEmployee(employee, id);
     }
-
-    @DeleteMapping("/delete-emp/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteEmployee(@PathVariable String id) {
+    public String deleteEmployee(@PathVariable Long id) {
+        service.removeEmployee(id);
+        return "deleted";
+
 
     }
-    @PutMapping("/update-employee")
-    public void updateEmployee(@RequestBody Employee employe1){
 
-    }
 }
