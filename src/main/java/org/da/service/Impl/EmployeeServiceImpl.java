@@ -110,4 +110,14 @@ public class EmployeeServiceImpl implements EmployeeService {
             repository.deleteById(id);
         }
     }
+
+    @Override
+    public Employee findById(Long id) {
+        if(repository.findById(id).isPresent()){
+            Optional<EmployeeEntity> byId = repository.findById(id);
+            return new ObjectMapper().convertValue(byId.get(), Employee.class);
+        }
+
+        return new Employee();
+    }
 }
